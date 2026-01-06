@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.awt.print.Pageable;
 
-public interface AqiRepository extends JpaRepository<AqiData, Long> {
+public interface AqiReadingRepository extends JpaRepository<AqiData, Long> {
 
     Page<AqiData> findByCity(
             String city, Pageable pageable

@@ -1,16 +1,16 @@
-package com.aqi.backend.model;
+package com.aqi.backend.dto;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "aqi_readings")
 @Data
-public class AqiReading {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+@NoArgsConstructor
+public class AqiReadingResponse {
     private Long id;
     private String city;
     private String area;
@@ -18,5 +18,4 @@ public class AqiReading {
     private String mainPollutant;
     private String source;
     private Instant timestamp;
-    private Instant createdAt;
 }

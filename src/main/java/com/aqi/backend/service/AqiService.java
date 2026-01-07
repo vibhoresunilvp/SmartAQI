@@ -3,6 +3,7 @@ package com.aqi.backend.service;
 import com.aqi.backend.dto.AqiReadingResponse;
 //import org.springframework.cache.annotation.Cacheable;
 //import org.springframework.cache.annotation.EnableCaching;
+import com.aqi.backend.dto.CreateAqiReadingRequest;
 import com.aqi.backend.model.AqiReading;
 import com.aqi.backend.repository.AqiReadingRepository;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,19 @@ public class AqiService {
     public Page<AqiReadingResponse> getHistory(String city, Instant from, Instant to, Pageable pageable) {
         return aqiReadingRepository.findByCityAndTimestampBetween(city, from, to, pageable)
                 .map(this::mapToResponse);
+    }
+
+    public AqiReadingResponse createReading(CreateAqiReadingRequest request) {
+        AqiReading entity = new AqiReading();
+        entity.setCity(request.getCity());
+        entity.setArea(request.getArea());
+        entity.setAqi(request.getAqi());
+        entity.setMainPollutant(request.getMainPollutant());
+        entity.setSource(request.getSource());
+        entity.setTimestamp(request.getTimestamp());
+        entity.setCreatedAt(Instant.now());
+        AqiReading saved = aqiReadingRepository.save(entity);
+        return mapToResponse(saved);
     }
 
     private AqiReadingResponse mapToResponse(AqiReading entity) {

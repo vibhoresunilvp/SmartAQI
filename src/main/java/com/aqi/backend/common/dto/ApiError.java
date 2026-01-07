@@ -1,0 +1,12 @@
+package com.aqi.backend.common.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ApiError {
+    private String code;
+    private String message;
+    private Object details;
+}

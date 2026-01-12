@@ -17,5 +17,5 @@ spring:
     port: 6379
 
 jwt:
-  secret: verySecretKeyChangeLater
+  secret: c3VwZXJTZWNyZXRLZXlGb3JKV1RIZDI1Ng==
   expiration: 3600000

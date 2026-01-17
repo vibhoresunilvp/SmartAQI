@@ -1,11 +1,11 @@
 package com.aqi.backend.service;
 
 import com.aqi.backend.dto.AqiReadingResponse;
-//import org.springframework.cache.annotation.Cacheable;
-//import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.annotation.CacheEvict;
 import com.aqi.backend.dto.CreateAqiReadingRequest;
 import com.aqi.backend.model.AqiReading;
 import com.aqi.backend.repository.AqiReadingRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AqiService {
         this.aqiReadingRepository = aqiReadingRepository;
     }
 
-    //    @Cacheable(value = "aqiCurrent", key = "#city")
+    @Cacheable(cacheNames = "currentAqi", key = "#city")
     public Optional<AqiReadingResponse> getCurrentAqi(String city) {
         return aqiReadingRepository.findTopByCityOrderByTimestampDesc(city)
                 .map(this::mapToResponse);
@@ -34,6 +34,7 @@ public class AqiService {
                 .map(this::mapToResponse);
     }
 
+    @CacheEvict(cacheNames = "currentAqi", key = "#request.city")
     public AqiReadingResponse createReading(CreateAqiReadingRequest request) {
         AqiReading entity = new AqiReading();
         entity.setCity(request.getCity());

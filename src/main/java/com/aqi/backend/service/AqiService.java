@@ -6,6 +6,7 @@ import com.aqi.backend.dto.CreateAqiReadingRequest;
 import com.aqi.backend.model.AqiReading;
 import com.aqi.backend.repository.AqiReadingRepository;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.time.Instant;
 import java.util.Optional;
 
 @Service
-//@EnableCaching
+@EnableCaching
 public class AqiService {
 
     private final AqiReadingRepository aqiReadingRepository;
